@@ -21,14 +21,16 @@
   server.addHandler(handler);
 */
 
-#if __has_include("ArduinoJson.h")
+#ifdef ARDUINOJSON_VERSION_MAJOR
   #include <ArduinoJson.h>
   #if ARDUINOJSON_VERSION_MAJOR >= 6
     #define ASYNC_MSG_PACK_SUPPORT 1
   #else
     #define ASYNC_MSG_PACK_SUPPORT 0
   #endif // ARDUINOJSON_VERSION_MAJOR >= 6
-#endif   // __has_include("ArduinoJson.h")
+#else
+  #define ASYNC_MSG_PACK_SUPPORT 0
+#endif
 
 #if ASYNC_MSG_PACK_SUPPORT == 1
   #include <ESPAsyncWebServer.h>
