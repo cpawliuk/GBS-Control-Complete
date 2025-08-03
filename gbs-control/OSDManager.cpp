@@ -26,6 +26,33 @@ bool osdBrightness(OSDMenuConfig &config)
     config.barActiveLength = (cur + 128 + 1) / STEP;
     return true;
 }
+
+bool osdContrast(OSDMenuConfig &config)
+{
+    const uint8_t STEP = 8;
+    int16_t cur = GBS::ADC_RGCTRL::read();
+    if (config.onChange) {
+        if (uopt->enableAutoGain == 1) {
+            uopt->enableAutoGain = 0;
+            saveUserPrefs();
+        } else {
+            uopt->enableAutoGain = 0;
+        }
+        if (config.inc) {
+            cur = MAX(0, cur - STEP);
+        } else {
+            cur = MIN(cur + STEP, 255);
+        }
+        GBS::ADC_RGCTRL::write(cur);
+        GBS::ADC_GGCTRL::write(cur);
+        GBS::ADC_BGCTRL::write(cur);
+    }
+    config.barLength = 256 / STEP;
+    config.barActiveLength = (256 - cur) / STEP;
+    return true;
+}
+
+/*
 bool osdAutoGain(OSDMenuConfig &config)
 {
     config.barLength = 2;
@@ -40,32 +67,51 @@ bool osdAutoGain(OSDMenuConfig &config)
     }
     return true;
 }
+*/
+
+// Added by Christopher Pawliuk - August 3rd 2025
+// Allows the user to toggle and adjust scanlines via the OSD.
+// https://github.com/cpawliuk/gbs-control-complete
 bool osdScanlines(OSDMenuConfig &config)
 {
+    int8_t currentScanlineStrength = uopt->scanlineStrength;
+
     if (config.onChange) {
         if (config.inc) {
-            if (uopt->scanlineStrength > 0) {
-                uopt->scanlineStrength -= 0x10;
+            if (!uopt->wantScanlines) {
+                currentScanlineStrength = 0x50;
+                uopt->wantScanlines = 1;
+            } else {
+                currentScanlineStrength = MAX(currentScanlineStrength - 0x10, 0x00);
             }
         } else {
-            uopt->scanlineStrength = MIN(uopt->scanlineStrength + 0x10, 0x50);
+            currentScanlineStrength = MIN(currentScanlineStrength + 0x10, 0x60);
         }
-        if (uopt->scanlineStrength == 0x50) {
+
+        if (currentScanlineStrength == 0x60) {
             uopt->wantScanlines = 0;
-        } else {
-            uopt->wantScanlines = 1;
+            currentScanlineStrength = 0x50;
         }
+
+        uopt->scanlineStrength = currentScanlineStrength;
+
         GBS::MADPT_Y_MI_OFFSET::write(uopt->scanlineStrength);
+        GBS::MADPT_UV_MI_OFFSET::write(uopt->scanlineStrength);
         saveUserPrefs();
     }
-    config.barLength = 128;
-    if (uopt->scanlineStrength == 0) {
-        config.barActiveLength = 128;
+
+    config.barLength = 6;
+
+    if (uopt->wantScanlines == 0) {
+        config.barActiveLength = 0;
     } else {
-        config.barActiveLength = (5 - uopt->scanlineStrength / 0x10) * 25;
+        config.barActiveLength = config.barLength - (uopt->scanlineStrength / 0x10);
     }
+
     return true;
 }
+
+/*
 bool osdLineFilter(OSDMenuConfig &config)
 {
     config.barLength = 2;
@@ -81,6 +127,8 @@ bool osdLineFilter(OSDMenuConfig &config)
     }
     return true;
 }
+*/
+
 bool osdMoveX(OSDMenuConfig &config)
 {
     config.barLength = 2;
@@ -148,35 +196,13 @@ bool osdScaleX(OSDMenuConfig &config)
     }
     return false;
 }
-bool osdContrast(OSDMenuConfig &config)
-{
-    const uint8_t STEP = 8;
-    int16_t cur = GBS::ADC_RGCTRL::read();
-    if (config.onChange) {
-        if (uopt->enableAutoGain == 1) {
-            uopt->enableAutoGain = 0;
-            saveUserPrefs();
-        } else {
-            uopt->enableAutoGain = 0;
-        }
-        if (config.inc) {
-            cur = MAX(0, cur - STEP);
-        } else {
-            cur = MIN(cur + STEP, 255);
-        }
-        GBS::ADC_RGCTRL::write(cur);
-        GBS::ADC_GGCTRL::write(cur);
-        GBS::ADC_BGCTRL::write(cur);
-    }
-    config.barLength = 256 / STEP;
-    config.barActiveLength = (256 - cur) / STEP;
-    return true;
-}
 
 void initOSD()
 {
     osdManager.registerIcon(OSDIcon::BRIGHTNESS, osdBrightness);
     osdManager.registerIcon(OSDIcon::CONTRAST, osdContrast);
+
+    osdManager.registerIcon(OSDIcon::HUE, osdScanlines);
 
     // consufuing, disabled for now
     // osdManager.registerIcon(OSDIcon::HUE, osdScanlines);

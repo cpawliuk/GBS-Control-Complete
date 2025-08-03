@@ -16,9 +16,9 @@ struct OSDMenuConfig
 typedef bool (*OSDHanlder)(OSDMenuConfig &config);
 bool osdBrightness(OSDMenuConfig &config);
 bool osdContrast(OSDMenuConfig &config);
-bool osdAutoGain(OSDMenuConfig &config);
+//bool osdAutoGain(OSDMenuConfig &config);
 bool osdScanlines(OSDMenuConfig &config);
-bool osdLineFilter(OSDMenuConfig &config);
+//bool osdLineFilter(OSDMenuConfig &config);
 bool osdMoveX(OSDMenuConfig &config);
 bool osdMoveY(OSDMenuConfig &config);
 bool osdScaleY(OSDMenuConfig &config);

@@ -1,6 +1,8 @@
-# GBS-Control-Complete
+# GBS-Control-Complete 1.1.0
 
 This repository contains a modified build of [GBS-Control](https://github.com/ramapcsx2/gbs-control) along with the required libraries for building and running it on an ESP8266 using the Arduino IDE.
+
+Precompiled builds are available by version in the `build` directory. Below, any listed changes correspond to the respective build versions.
 
 
 ## Included Components
@@ -16,12 +18,23 @@ This repository contains a modified build of [GBS-Control](https://github.com/ra
 
 The following changes were made to allow successful compilation and deployment via the Arduino IDE:
 
-- Updated include paths and `#include` directives to match current IDE/library expectations.
-- Adjusted build flags and settings for ESP8266 compatibility.
-- Patched code inconsistencies in `gbs-control` that caused compiler errors.
-- Ensured all dependencies are self-contained in this repository for reproducible builds.
+- [`1.0.0`] Updated include paths and `#include` directives to match current IDE/library expectations.
+- [`1.0.0`] Adjusted build flags and settings for ESP8266 compatibility.
+- [`1.0.0`] Patched code inconsistencies in `gbs-control` that caused compiler errors.
+- [`1.0.0`] Ensured all dependencies are self-contained in this repository for reproducible builds.
 
 You can compare these changes from the original sources by checking the commit history.
+
+
+## Features Added
+- [`1.1.0`] Added an OSD menu option to enable scanlines and adjust strength using the same intensity levels as the Web GUI.
+
+![Scanlines OSD Screenshot](images/Scanlines-README-IMG.png)
+
+## Planned Features
+- Rework of the OLED menu system.
+- Add an OSD menu option for Frametime Lock with a toggle between vtotal + VSST and vtotal only methods.
+- Add an OSD menu option for Deinterlace Method with a toggle between Motion Adaptive and Bob modes.
 
 
 ## Credits
@@ -29,6 +42,7 @@ You can compare these changes from the original sources by checking the commit h
 - [rama](https://github.com/ramapcsx2) — `gbs-control`
 - [me-no-dev](https://github.com/me-no-dev) — `ESPAsyncTCP` and `ESPAsyncWebServer`
 - [Daniel Eichhorn](https://github.com/squix78) & [Fabrice Weinberg](https://github.com/FWeinb) — `esp8266-oled-ssd1306`
+- [Christopher Pawliuk](https://github.com/cpawliuk) — Modifications and Features Added in this package
 
 
 ## Versions
