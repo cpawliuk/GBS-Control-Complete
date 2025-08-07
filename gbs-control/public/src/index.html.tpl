@@ -229,9 +229,17 @@
                 onclick="savePreset()"
                 active
               >
-                <div class="gbs-icon">fiber_manual_record</div>
+                <div class="gbs-icon">add_circle_outline</div>
                 <div>save preset</div>
               </button>
+              <button
+              class="gbs-button gbs-button__control-action gbs-button__secondary"
+              onclick="removePreset()"
+              active
+            >
+              <div class="gbs-icon">highlight_remove</div>
+              <div>remove preset</div>
+            </button>
             </div>
           </fieldset>
         </section>

@@ -9797,6 +9797,7 @@ void startWebserver()
             }
         }
 
+        fail:
         request->send(200, "application/json", result ? "true" : "false");
     });
 
