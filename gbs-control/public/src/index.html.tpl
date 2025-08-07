@@ -876,7 +876,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="gbs-padding__left-16">FrameTime Lock</td>
+                <td class="gbs-padding__left-16 gbs-padding__bottom--16">FrameTime Lock</td>
                 <td
                   class="gbs-icon"
                   gbs-message="5"
@@ -888,15 +888,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="gbs-padding__left-16">Switch Lock Method</td>
+                <td class="gbs-preferences__child gbs-padding__left-16">FrameTime Lock Method</td>
+              </tr>
+              <tr>
+                <td class="gbs-padding__left-16">VTotal + VSST</td>
                 <td
                   class="gbs-icon"
                   gbs-message="i"
                   gbs-message-type="user"
                   gbs-click="normal"
                   style="cursor: pointer"
+                  gbs-toggle-switch="frameTimeLockMethod_vtotal_vsst"
                 >
-                  swap_horiz
+                  toggle_off
+                </td>
+              </tr>
+              <tr>
+                <td class="gbs-padding__left-16">VTotal</td>
+                <td
+                  class="gbs-icon"
+                  gbs-message="I"
+                  gbs-message-type="user"
+                  gbs-click="normal"
+                  style="cursor: pointer"
+                  gbs-toggle-switch="frameTimeLockMethod_vtotal_only"
+                >
+                  toggle_off
                 </td>
               </tr>
               <tr>

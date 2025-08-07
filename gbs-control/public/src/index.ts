@@ -332,6 +332,12 @@ const createWebSocket = () => {
             case "frameTimeLock":
               toggleMethod(button, (optionByte1 & 0x02) == 0x02);
               break;
+            case "frameTimeLockMethod_vtotal_vsst":
+              toggleMethod(button, (optionByte1 & 0x02) == 0x02 && (optionByte1 & 0x08) != 0x08);
+              break;
+            case "frameTimeLockMethod_vtotal_only":
+              toggleMethod(button, (optionByte1 & 0x02) == 0x02 && (optionByte1 & 0x08) == 0x08);
+              break;
             case "motionAdaptive":
               toggleMethod(button, (optionByte1 & 0x04) == 0x04);
               break;

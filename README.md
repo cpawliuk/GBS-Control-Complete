@@ -1,4 +1,4 @@
-# GBS-Control-Complete 1.1.0
+# GBS-Control-Complete 1.2.0
 
 This repository contains a modified build of [GBS-Control](https://github.com/ramapcsx2/gbs-control) along with the required libraries for building and running it on an ESP8266 using the Arduino IDE.
 
@@ -14,22 +14,35 @@ Precompiled builds are available by version in the `build` directory. Below, any
 - [`package_esp8266com_index.json`](http://arduino.esp8266.com/stable/package_esp8266com_index.json) — Additional Boards Manager URL for ESP8266.
 
 
-## Modifications
+## Modifications and Features Added
+- [`1.2.0`] Improved the Web GUI in the FrameTime Lock section by replacing the single "Switch Lock Method" cycling button with explicit toggles for each method. This change makes it immediately clear which FrameTime Lock method is active, improving usability and removing the need to consult logs.
 
-The following changes were made to allow successful compilation and deployment via the Arduino IDE:
+**Before:**
+
+The active method was hidden; switching required pressing the arrow button and observing the effect.
+
+![FrameTime Lock Method Screenshot 1](images/FrameTime-Lock-Method-README-IMG-1.png)
+
+**After:**
+
+Each method now has its own toggle button. The currently selected method is highlighted, allowing faster and more intuitive control.
+
+![FrameTime Lock Method Screenshot 2](images/FrameTime-Lock-Method-README-IMG-2.png)
+![FrameTime Lock Method Screenshot 3](images/FrameTime-Lock-Method-README-IMG-3.png)
+
+
+- [`1.1.0`] Added an OSD menu option to enable scanlines and adjust strength using the same intensity levels as the Web GUI.
+
+![Scanlines OSD Screenshot](images/Scanlines-README-IMG.png)
+
 
 - [`1.0.0`] Updated include paths and `#include` directives to match current IDE/library expectations.
 - [`1.0.0`] Adjusted build flags and settings for ESP8266 compatibility.
 - [`1.0.0`] Patched code inconsistencies in `gbs-control` that caused compiler errors.
 - [`1.0.0`] Ensured all dependencies are self-contained in this repository for reproducible builds.
 
-You can compare these changes from the original sources by checking the commit history.
+You can compare these changes from the original sources by checking the [commit history](https://github.com/cpawliuk/gbs-control-complete/commits/main/).
 
-
-## Features Added
-- [`1.1.0`] Added an OSD menu option to enable scanlines and adjust strength using the same intensity levels as the Web GUI.
-
-![Scanlines OSD Screenshot](images/Scanlines-README-IMG.png)
 
 ## Planned Features
 - Rework of the OLED menu system.
