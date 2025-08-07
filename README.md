@@ -1,4 +1,4 @@
-# GBS-Control-Complete 1.2.0
+# GBS-Control-Complete 1.3.0
 
 This repository contains a modified build of [GBS-Control](https://github.com/ramapcsx2/gbs-control) along with the required libraries for building and running it on an ESP8266 using the Arduino IDE.
 
